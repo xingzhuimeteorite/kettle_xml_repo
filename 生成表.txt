@@ -1,0 +1,15 @@
+
+
+
+job name 
+job path 
+job createtime  
+job updatetime 
+
+parent name/parent name 
+
+job step/trans step 
+job type/trans type 
+job connection /tranns connection 
+job context / trans context  
+sql complexity 

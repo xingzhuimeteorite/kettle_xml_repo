@@ -1,0 +1,88 @@
+drop table if exists dev_hermon.job_info ;
+drop table if exists dev_hermon.trans_info ;
+drop table if exists dev_hermon.job_info_dev ;
+drop table if exists dev_hermon.trans_info_dev ;
+
+create table dev_hermon.job_info 
+(
+`id` int NOT NULL AUTO_INCREMENT comment 'id',
+`file_name` char(100) comment '文件名称',
+`file_path_name` char(100) comment '文件路径',
+`job_name` char(100) not null comment 'job名称',
+`job_path` char(100) not null comment 'job路径',
+`job_create_time` datetime  comment 'job创建时间',
+`job_update_time` datetime  comment 'job更新时间',
+`job_entry` char(100) not null comment 'job步骤',
+`job_entry_type` char(100) not null comment 'job步骤类型',
+`job_entry_connection` char(100) not null comment 'job路径',
+`job_entry_content` text not null comment 'job路径',
+`job_sql_complexity` int  comment 'sql复杂度',
+`sql_size` char(50) comment 'sql文件大小',
+`author` char(100) comment '变更者',
+`create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  COMMENT '更新时间',
+ PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='job信息';
+
+create table dev_hermon.trans_info 
+(
+`id` int NOT NULL AUTO_INCREMENT comment 'id',
+`file_name` char(100) not null comment '文件名称',
+`file_path_name` char(100) not null comment '文件路径',
+`trans_name` char(100) not null comment 'trans_name',
+`trans_path` char(100) not null comment 'trans路径',
+`trans_step` char(100) not null comment 'trans步骤',
+`trans_step_type` char(100) not null comment 'trans步骤类型',
+`trans_step_connection` char(100) not null comment 'trans步骤连接',
+`trans_step_content` text not null comment 'trans步骤内容',
+`trans_sql_complexity` int  comment 'sql复杂度',
+`sql_size` char(50) comment 'sql文件大小',
+`author` char(100) comment '变更者',
+`create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  COMMENT '更新时间',
+ PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='trans信息';
+
+
+create table dev_hermon.job_info_dev 
+(`id` int NOT NULL AUTO_INCREMENT comment 'id',
+`file_name` char(100) comment '文件名称',
+`file_path_name` char(100) comment '文件路径',
+`job_name` char(100) not null comment 'job名称',
+`job_path` char(100) not null comment 'job路径',
+`job_create_time` datetime  comment 'job创建时间',
+`job_update_time` datetime  comment 'job更新时间',
+`job_entry` char(100) not null comment 'job步骤',
+`job_entry_type` char(100) not null comment 'job步骤类型',
+`job_entry_connection` char(100) not null comment 'job路径',
+`job_entry_content` text not null comment 'job路径',
+`job_sql_complexity` int  comment 'sql复杂度',
+`sql_size` char(50) comment 'sql文件大小',
+`author` char(100) comment '变更者',
+`create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  COMMENT '更新时间',
+ PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='job信息';
+
+create table dev_hermon.trans_info_dev 
+(
+`id` int NOT NULL AUTO_INCREMENT comment 'id',
+`file_name` char(100) not null comment '文件名称',
+`file_path_name` char(100) not null comment '文件路径',
+`trans_name` char(100) not null comment 'trans_name',
+`trans_path` char(100) not null comment 'trans路径',
+`trans_step` char(100) not null comment 'trans步骤',
+`trans_step_type` char(100) not null comment 'trans步骤类型',
+`trans_step_connection` char(100) not null comment 'trans步骤连接',
+`trans_step_content` text not null comment 'trans步骤内容',
+`trans_sql_complexity` int  comment 'sql复杂度',
+`sql_size` char(50) comment 'sql文件大小',
+`author` char(100) comment '变更者',
+`create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  COMMENT '更新时间',
+ PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='trans信息';

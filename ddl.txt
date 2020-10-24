@@ -1,0 +1,74 @@
+
+ insert into dev_hermon.job_info select * from dev_hermon.job_info_dev;
+ insert into dev_hermon.trans_info select * from dev_hermon.trans_info_dev;
+-- 当前目录替换为绝对路径
+update job_info_dev
+
+set job_entry_connection = job_path
+where job_entry_connection = '${Internal.Entry.Current.Directory}'；
+
+update job_info 
+set parent_job_name = 'root'
+WHERE job_name not in 
+(
+SELECT *FROM (
+select 
+job_entry_content
+from 
+job_info
+where job_entry_type = 'JOB') a
+)；
+--  拼接结果表
+create table job_detail as 
+select
+	a.job_name,
+	a.job_path,
+	a.job_create_time,
+	a.job_update_time,
+	a.job_entry,
+	a.job_entry_type,
+	case a.job_entry_type
+	when 'TRANS' then b.trans_step_connection
+	else  a.job_entry_connection
+	end as database_connection
+	,b.trans_step
+	,case a.job_entry_type
+	when 'TRANS' then b.trans_step_content
+	else a.job_entry_content
+	end as step_content
+	,case a.job_entry_type
+	when 'TRANS' then b.trans_sql_complexity
+	else  a.job_sql_complexity
+	end as sql_complexity
+from
+	job_info_dev a
+left join trans_info_dev b 
+on a.job_entry_type = 'TRANS'
+and  a.job_entry_content = b.trans_name 
+and  a.job_entry_connection = b.trans_path
+order by a.job_name
+
+
+INSERT INTO `dev_hermon`.`job_detail`(`job_name`,job_path ,`job_create_time`, `job_update_time`, `job_entry`, `job_entry_type`, `job_entry_connection`, `job_entry_content`, `trans_name`, `trans_path`, `trans_step`, `trans_step_type`, `trans_step_connection`, `trans_step_content`, `job_sql_complexity`)
+select
+	j.job_name,
+	j.job_path,
+	j.job_create_time,
+	j.job_update_time,
+	j.job_entry,
+	j.job_entry_type,
+	j.job_entry_connection,
+	j.job_entry_content,
+	t.trans_name,
+	t.trans_path,
+	t.trans_step,
+	t.trans_step_type,
+	t.trans_step_connection,
+	t.trans_step_content,
+	case j.job_sql_complexity
+	when 0 then t.trans_sql_complexity 
+	else j.job_sql_complexity 
+	end as sql_complexity
+	from job_info j 
+	left join trans_info t on j.job_path = t.trans_path 
+	and j.job_entry = t.trans_name

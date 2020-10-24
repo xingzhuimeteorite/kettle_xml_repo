@@ -1,18 +1,7 @@
-from pathlib import Path
+import logging
 
-tree_str = ''
+logging.basicConfig(filename='example.log', filemode="w", level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s')
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
 
-def generate_tree(pathname, n=0):
-    global tree_str
-    if pathname.is_file():
-        tree_str += '    |' * n + '-' * 4 + pathname.name + '\n'
-    elif pathname.is_dir():
-        tree_str += '    |' * n + '-' * 4 + \
-                    str(pathname.relative_to(pathname.parent)) + '\\' + '\n'
-        for cp in pathname.iterdir():
-            generate_tree(cp, n + 1)
-
-
-if __name__ == '__main__':
-    generate_tree(Path.cwd())
-    print(tree_str)

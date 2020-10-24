@@ -1,0 +1,3 @@
+2020-09-11 14:24:54,902 - DEBUG - This message should go to the log file
+2020-09-11 14:24:54,902 - INFO - So should this
+2020-09-11 14:24:54,902 - WARNING - And this, too
